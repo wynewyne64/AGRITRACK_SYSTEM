@@ -1,0 +1,25 @@
+.transparent-navbar {
+  background: rgba(0, 0, 0, 0.35) !important;
+  backdrop-filter: blur(8px);
+  transition: background 0.25s ease;
+  z-index: 9999;
+}
+
+/* Light text for better contrast */
+.transparent-navbar .nav-link,
+.transparent-navbar .navbar-brand {
+  color: #f8f9fa !important;
+}
+
+/* subtle hover */
+.transparent-navbar .nav-link:hover {
+  color: #b6f7c1 !important;
+}
+
+/* make sure navbar sits above the dashboard background */
+.fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}

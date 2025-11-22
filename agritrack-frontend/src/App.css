@@ -1,0 +1,7 @@
+.list-group-item {
+  transition: background-color 0.3s ease;
+}
+.list-group-item:hover {
+  background-color: #f6fef9;
+}
+

@@ -1,0 +1,11 @@
+.btn-brown {
+  background-color: #795548;
+  color: #fff;
+}
+.btn-brown:hover {
+  background-color: #5d4037;
+  color: #fff;
+}
+.text-brown {
+  color: #6d4c41 !important;
+}

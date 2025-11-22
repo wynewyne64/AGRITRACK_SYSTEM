@@ -1,0 +1,66 @@
+/* 🌾 Background Image Setup */
+.dashboard-container {
+  position: relative;
+  background-image: url("https://images.pexels.com/photos/33983446/pexels-photo-33983446.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* 🟩 Subtle Overlay for Contrast */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+/* 🌟 Content sits above overlay */
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+/* 💎 Card Style (Glass Effect) */
+.dashboard-card {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  transition: all 0.35s ease;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* 🧭 Icon Styling */
+.icon-wrapper svg {
+  color: #d8f3dc;
+  transition: all 0.3s ease;
+}
+
+.dashboard-card:hover .icon-wrapper svg {
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+/* ✨ Headings */
+h2, h5 {
+  font-family: "Poppins", sans-serif;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 1.8rem;
+  }
+}
