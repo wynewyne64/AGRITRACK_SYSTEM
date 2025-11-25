@@ -58,13 +58,14 @@ export default function FarmerDetails() {
     setLoading(true);
 
     try {
-      const API_URL = process.env.REACT_APP_API_URL;
+       const API_URL = process.env.REACT_APP_API_URL;
 
-         fetch(`${API_URL}/Farmer/farmers/${farmerId}/`)
-
-        editingFarmer,
-
-      );
+        const response = await fetch(`${API_URL}/Farmer/farmers/${farmerId}/`, {
+        method: 'GET', // or 'PUT', 'POST' depending on your request
+       headers: {
+       'Content-Type': 'application/json',
+    },
+  });
       setFarmer(res.data);
       toast.success("Farmer details updated successfully!");
     } catch (err) {
