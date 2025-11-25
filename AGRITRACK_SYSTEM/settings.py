@@ -17,7 +17,7 @@ from decouple import config
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['agritrack-system-4.onrender.com']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,7 +32,6 @@ SECRET_KEY = 'django-insecure-)bgmmczvs8wzd!jyrn5(d-lhwwi=g@=51!bcyr%5jn8d6h8stx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["Agritrack_system.onrender.com"]
 
 
 # Application definition
