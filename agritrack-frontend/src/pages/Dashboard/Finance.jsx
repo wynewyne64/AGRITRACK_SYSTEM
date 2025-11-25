@@ -35,10 +35,10 @@ const Finance = () => {
   const [totals, setTotals] = useState({ income: 0, expense: 0 });
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [farmerId, setFarmerId] = useState(null);
+  const [token, setToken] = useState(null);
 
-  //  Include all backend-required fields
   const [formData, setFormData] = useState({
-    id: null,
     transaction_type: "income",
     description: "",
     amount: "",
@@ -48,7 +48,16 @@ const Finance = () => {
   const API_URL = "http://127.0.0.1:8000/finance/finances/";
 
   useEffect(() => {
-    fetchFinanceData();
+    // Get farmerId and token from localStorage or your auth context
+    const storedFarmerId = localStorage.getItem("farmerId");
+    const storedToken = localStorage.getItem("token");
+
+    setFarmerId(storedFarmerId);
+    setToken(storedToken);
+
+    if (storedFarmerId) {
+      fetchFinanceData();
+    }
   }, []);
 
   // Fetch all transactions
@@ -75,7 +84,6 @@ const Finance = () => {
     if (transaction) {
       setFormData({
         id: transaction.id,
-        farmer: transaction.farmer,
         transaction_type: transaction.transaction_type,
         description: transaction.description,
         amount: transaction.amount,
@@ -84,8 +92,6 @@ const Finance = () => {
       setEditing(true);
     } else {
       setFormData({
-        id: null,
-        farmer: "",
         transaction_type: "income",
         description: "",
         amount: "",
@@ -101,13 +107,28 @@ const Finance = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  //  Save or Update Transaction
+  // Save or Update Transaction
   const handleSave = async () => {
+    if (!farmerId) {
+      alert("Farmer ID not found. Please contact support.");
+      return;
+    }
+
     try {
       if (editing) {
-        await axiosInstance.put(`${API_URL}${formData.id}/`, formData);
+        const data = { ...formData, farmer: farmerId };
+        await axiosInstance.put(`${API_URL}${formData.id}/`, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       } else {
-        await axiosInstance.post(API_URL, formData);
+        const data = { ...formData, farmer: farmerId };
+
+        console.log("=== ADDING TRANSACTION ===");
+        console.log("Data being sent:", data);
+
+        await axiosInstance.post(API_URL, data, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
       }
       fetchFinanceData();
       setShowModal(false);
@@ -117,11 +138,13 @@ const Finance = () => {
     }
   };
 
-  //  Delete Transaction
+  // Delete Transaction
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this transaction?")) {
       try {
-        await axiosInstance.delete(`${API_URL}${id}/`);
+        await axiosInstance.delete(`${API_URL}${id}/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         fetchFinanceData();
       } catch (error) {
         console.error("Error deleting transaction:", error);
@@ -272,7 +295,7 @@ const Finance = () => {
         </tbody>
       </Table>
 
-      {/*  Add/Edit Modal */}
+      {/* Add/Edit Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>

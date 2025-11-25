@@ -3,7 +3,7 @@ from . import models
 
 @admin.register(models.InventoryItem)
 class FarmerAdmin(admin.ModelAdmin):
-    list_display=['farmer','name','category','quantity','unit','date_added','quantity_status']
+    list_display=['Farmer','name','category','quantity','unit','date_added','quantity_status']
     list_editable=['quantity','unit']
 
     @admin.display(ordering='quantity')

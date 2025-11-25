@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosConfig.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as bootstrap from "bootstrap";
 import {
@@ -34,8 +34,9 @@ export default function Market() {
     image: null,
   });
 
-  const API_URL = "http://127.0.0.1:8000/market/markets/";
-  const CART_URL = "http://127.0.0.1:8000/market/carts/";
+  const API_URL = "market/markets/";
+  const CART_URL = "market/carts/";
+  const ORDER_URL = "market/orders/";
   const loggedFarmerId = " ";
 
   const categoryImages = {
@@ -55,7 +56,7 @@ export default function Market() {
     let savedCartId = localStorage.getItem("cartId");
     if (savedCartId) {
       try {
-        const res = await axios.get(`${CART_URL}${savedCartId}/`);
+        const res = await axiosInstance.get(`${CART_URL}${savedCartId}/`);
         setCart(res.data);
         setCartId(savedCartId);
       } catch {
@@ -68,7 +69,7 @@ export default function Market() {
 
   const createNewCart = async () => {
     try {
-      const res = await axios.post(CART_URL);
+      const res = await axiosInstance.post(CART_URL);
       setCartId(res.data.id);
       setCart(res.data);
       localStorage.setItem("cartId", res.data.id);
@@ -81,7 +82,7 @@ export default function Market() {
   const fetchCart = async () => {
     if (!cartId) return;
     try {
-      const res = await axios.get(`${CART_URL}${cartId}/`);
+      const res = await axiosInstance.get(`${CART_URL}${cartId}/`);
       setCart(res.data);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -90,7 +91,7 @@ export default function Market() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get(API_URL);
+      const res = await axiosInstance.get(API_URL);
       setProducts(res.data);
       setFiltered(res.data);
     } catch (error) {
@@ -114,12 +115,12 @@ export default function Market() {
     try {
       let id = localStorage.getItem("cartId");
       if (!id) {
-        const res = await axios.post(CART_URL);
+        const res = await axiosInstance.post(CART_URL);
         id = res.data.id;
         localStorage.setItem("cartId", id);
         setCartId(id);
       }
-      await axios.post(`${CART_URL}${id}/items/`, {
+      await axiosInstance.post(`${CART_URL}${id}/items/`, {
         market_id: product.id,
         quantity: 1,
       });
@@ -134,7 +135,7 @@ export default function Market() {
   const handleUpdateCartItem = async (itemId, quantity) => {
     if (quantity < 1) return;
     try {
-      await axios.patch(`${CART_URL}${cartId}/items/${itemId}/`, { quantity });
+      await axiosInstance.patch(`${CART_URL}${cartId}/items/${itemId}/`, { quantity });
       await fetchCart();
       toast.info("Cart updated");
     } catch (error) {
@@ -145,7 +146,7 @@ export default function Market() {
 
   const handleRemoveFromCart = async (itemId) => {
     try {
-      await axios.delete(`${CART_URL}${cartId}/items/${itemId}/`);
+      await axiosInstance.delete(`${CART_URL}${cartId}/items/${itemId}/`);
       await fetchCart();
       toast.info("Item removed");
     } catch (error) {
@@ -161,7 +162,7 @@ export default function Market() {
     }
     setOrderLoading(true);
     try {
-      await axios.post("http://127.0.0.1:8000/market/orders/", {
+      await axiosInstance.post(ORDER_URL, {
         cart_id: cartId,
       });
       toast.success("Order placed successfully!");
@@ -197,7 +198,7 @@ export default function Market() {
     const formData = new FormData();
     Object.entries(newProduct).forEach(([k, v]) => v && formData.append(k, v));
     try {
-      await axios.post(API_URL, formData, {
+      await axiosInstance.post(API_URL, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Product added!");
@@ -229,7 +230,7 @@ export default function Market() {
     const formData = new FormData();
     Object.entries(newProduct).forEach(([k, v]) => v && formData.append(k, v));
     try {
-      await axios.put(`${API_URL}${editingProduct.id}/`, formData, {
+      await axiosInstance.put(`${API_URL}${editingProduct.id}/`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Product updated!");
@@ -246,7 +247,7 @@ export default function Market() {
   const handleDeleteProduct = async (id) => {
     if (!window.confirm("Delete this product?")) return;
     try {
-      await axios.delete(`${API_URL}${id}/`);
+      await axiosInstance.delete(`${API_URL}${id}/`);
       toast.info("Deleted successfully");
       fetchProducts();
     } catch (error) {

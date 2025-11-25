@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)bgmmczvs8wzd!jyrn5(d-lhwwi=g@=51!bcyr%5jn8d6h8stx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["Agritrack_system.onrender.com"]
 
 
 # Application definition
@@ -60,6 +60,7 @@ INSTALLED_APPS = [
 MIDDLEWARE += [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,7 +68,13 @@ MIDDLEWARE += [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ] + MIDDLEWARE
-CORS_ALLOW_ALL_ORIGINS =[
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
     "http://localhost:3000",
     "https://agritrack-frontend.vercel.app"
 ]
@@ -101,7 +108,7 @@ WSGI_APPLICATION = 'AGRITRACK_SYSTEM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': config("DB_NAME"),
         'USER':config("DB_USER"),
         'PASSWORD':config("DB_PASSWORD"),

@@ -255,10 +255,10 @@ export default function Livestock() {
         </button>
       </div>
 
-      {/* 🐄 Animal Grid */}
-      <div className="row g-4">
+      {/*  Animal Grid */}
+      <div className="row g-3">
         {livestock.length === 0 ? (
-          <div className="col-12 text-center text-muted">
+          <div className="col-20 text-center text-muted">
             <p>No livestock found. Click "Add Livestock" to start!</p>
           </div>
         ) : (

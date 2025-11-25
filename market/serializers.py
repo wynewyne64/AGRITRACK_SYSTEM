@@ -14,12 +14,12 @@ from .models import OrderItem
 class MarketSerializer(serializers.ModelSerializer):
     class Meta:
         model = MarketProduct
-        fields=['id','farmer','name','category','price_per_unit','unit','available_quantity','date_added','image']
+        fields=['id','Farmer','name','category','price_per_unit','unit','available_quantity','date_added','image']
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model= Review
-        fields=['farmer','name','description','date']
+        fields=['Farmer','name','description','date']
 
 class SimpleMarketSerializer(serializers.ModelSerializer):
     class Meta:

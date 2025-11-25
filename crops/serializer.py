@@ -4,4 +4,4 @@ class CropSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False)
     class Meta:
         model = Crop
-        fields=['id','farmer', 'name', 'planting_date','expected_harvest_date', 'yield_estimate','status', 'image']
+        fields=['id','Farmer', 'name', 'planting_date','expected_harvest_date', 'yield_estimate','status', 'image']
