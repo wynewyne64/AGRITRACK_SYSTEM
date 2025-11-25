@@ -2,7 +2,7 @@ from django.db import models
 from Farmer.models import Farmer
 
 class Livestock(models.Model):
-    farmer=models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    Farmer=models.ForeignKey(Farmer, on_delete=models.CASCADE)
     animal_type=models.CharField(max_length=100, choices=[
         ('cow', 'Cow'),
         ('goat', 'Goat'),
@@ -17,6 +17,6 @@ class Livestock(models.Model):
     total_production=models.IntegerField(null=True, blank=True, help_text='Total production of litres of milk/day or eggs per day')
 
     def __str__(self):
-        return f"{self.animal_type} ({self.farmer.farm_name})"
+        return f"{self.animal_type} ({self.Farmer.farm_name})"
 
 

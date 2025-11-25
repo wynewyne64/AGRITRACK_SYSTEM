@@ -17,6 +17,7 @@ from market.views import MarketViewSet
 admin.site.site_header='AGRITRACK ADMIN'
 admin.site.index_title='Admin'
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Farmer/',include('Farmer.urls')),

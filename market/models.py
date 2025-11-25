@@ -6,7 +6,7 @@ from Farmer.models import Farmer
 from uuid import uuid4
 
 class MarketProduct(models.Model):
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    Farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=50, choices=[
         ('crop', 'Crop'),
@@ -42,7 +42,7 @@ class CartItem(models.Model):
 
 
 class Review(models.Model):
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    Farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     name=models.CharField(max_length=255)
     description=models.TextField()
     date=models.DateField(auto_now_add=True)

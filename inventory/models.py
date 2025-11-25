@@ -2,7 +2,7 @@ from django.db import models
 from Farmer.models import Farmer
 
 class InventoryItem(models.Model):
-    farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
+    Farmer = models.ForeignKey(Farmer, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=50, choices=[
         ('seed', 'Seed'),

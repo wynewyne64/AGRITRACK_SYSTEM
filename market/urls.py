@@ -11,8 +11,6 @@ router.register('carts', views.CartViewSet)
 router.register('customers', views.CustomerViewSet)
 router.register('orders', views.OrderViewSet, basename='orders')
 
-pprint(router.urls)
-
 market_router=routers.NestedDefaultRouter(router,'markets',lookup='market')
 market_router.register('reviews', views.ReviewViewSet, basename='market-reviews')
 
