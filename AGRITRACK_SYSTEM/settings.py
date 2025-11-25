@@ -14,6 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 from django.conf.global_settings import AUTH_USER_MODEL, MIDDLEWARE
 from decouple import config
+import dj_database_url
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
