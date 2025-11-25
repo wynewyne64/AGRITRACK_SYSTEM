@@ -45,7 +45,8 @@ const Finance = () => {
     date: new Date().toISOString().split("T")[0],
   });
 
-  const API_URL = "http://127.0.0.1:8000/finance/finances/";
+  const API_URL = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     // Get farmerId and token from localStorage or your auth context

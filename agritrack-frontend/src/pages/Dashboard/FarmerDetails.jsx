@@ -58,8 +58,10 @@ export default function FarmerDetails() {
     setLoading(true);
 
     try {
-      const res = await axiosInstance.put(
-        `http://127.0.0.1:8000/Farmer/farmers/${farmerId}/`,
+      const API_URL = process.env.REACT_APP_API_URL;
+
+         fetch(`${API_URL}/Farmer/farmers/${farmerId}/`)
+
         editingFarmer,
 
       );

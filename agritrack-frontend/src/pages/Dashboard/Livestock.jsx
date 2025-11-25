@@ -38,6 +38,7 @@ export default function Livestock() {
   const [editAnimal, setEditAnimal] = useState(null);
 
   const token = localStorage.getItem("access_token");
+  const API_URL = process.env.REACT_APP_API_URL;
 
   //  Fetch Livestock
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function Livestock() {
     }
 
     axiosInstance
-      .get("http://127.0.0.1:8000/livestock/livestocks/", {
+      .get("${API_URL}/livestock/livestocks/", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -82,7 +83,7 @@ export default function Livestock() {
 
     try {
       const res = await axiosInstance.post(
-        "http://127.0.0.1:8000/livestock/livestocks/",
+        "${API_URL}/livestock/livestocks/",
         data,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -138,7 +139,7 @@ export default function Livestock() {
 
     try {
       const res = await axiosInstance.put(
-        `http://127.0.0.1:8000/livestock/livestocks/${editAnimal.id}/`,
+        `${API_URL}/livestock/livestocks/${editAnimal.id}/`,
         editAnimal,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -190,7 +191,7 @@ export default function Livestock() {
 
     try {
       await axiosInstance.delete(
-        `http://127.0.0.1:8000/livestock/livestocks/${id}/`,
+        `${API_URL}/livestock/livestocks/${id}/`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setLivestock(livestock.filter((a) => a.id !== id));

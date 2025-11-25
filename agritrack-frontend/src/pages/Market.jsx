@@ -33,8 +33,8 @@ export default function Market() {
     farmer: 1,
     image: null,
   });
-
-  const API_URL = "market/markets/";
+  const API_URL = process.env.REACT_APP_API_URL;
+  //const API_URL = "market/markets/";
   const CART_URL = "market/carts/";
   const ORDER_URL = "market/orders/";
   const loggedFarmerId = " ";

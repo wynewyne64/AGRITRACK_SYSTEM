@@ -22,6 +22,7 @@ export default function Inventory() {
   });
   const [editItem, setEditItem] = useState(null);
   const token = localStorage.getItem("access_token");
+  const API_URL = process.env.REACT_APP_API_URL;
 
   // Fetch Inventory
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function Inventory() {
       return;
     }
     axiosInstance
-      .get("http://127.0.0.1:8000/inventory/inventorys/", {
+      .get("${API_URL}/inventory/inventorys/", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -71,7 +72,7 @@ export default function Inventory() {
 
     try {
       const res = await axiosInstance.post(
-        "http://127.0.0.1:8000/inventory/inventorys/",
+        "${API_URL}/inventory/inventorys/",
         data,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -128,7 +129,7 @@ export default function Inventory() {
 
     try {
       const res = await axiosInstance.put(
-        `http://127.0.0.1:8000/inventory/inventorys/${editItem.id}/`,
+        `${API_URL}/inventory/inventorys/${editItem.id}/`,
         data,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -179,7 +180,7 @@ export default function Inventory() {
 
     try {
       await axiosInstance.delete(
-        `http://127.0.0.1:8000/inventory/inventorys/${id}/`,
+        `${API_URL}/inventory/inventorys/${id}/`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
